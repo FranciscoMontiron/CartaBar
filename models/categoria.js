@@ -1,24 +1,33 @@
 // models/categoria.js
 const Sequelize = require('sequelize');
 const sequelize = require('../config/db');
-const Producto = require('./producto');
 
 const Categoria = sequelize.define('categoria', {
   id: {
     type: Sequelize.INTEGER,
-    primaryKey: true,
     allowNull: false,
+    primaryKey: true,
   },
-  categoria: {
-    type: Sequelize.STRING(45),
-    allowNull: true,
+  nombre: {
+    type: Sequelize.STRING(255),
+    defaultValue: 'categoria',
   },
-  producto_id: {
+  menu_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
+    references: {
+      model: 'menu',
+      key: 'id',
+    },
+  },
+  menu_cleinte_id: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: 'menu',
+      key: 'cleinte_id',
+    },
   },
 });
-
-Categoria.belongsTo(Producto, { foreignKey: 'producto_id', targetKey: 'id' });
 
 module.exports = Categoria;

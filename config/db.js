@@ -1,7 +1,7 @@
-// En un archivo como db.js
+// config/db.js ambiente local.
 const Sequelize = require('sequelize');
 
-const sequelize = new Sequelize('cartabar', 'root', '7513', {
+const sequelize = new Sequelize('barmenu', 'root', '7513', {
   host: 'localhost',
   dialect: 'mysql',
 });

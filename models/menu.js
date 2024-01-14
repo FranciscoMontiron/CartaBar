@@ -1,23 +1,22 @@
 // models/menu.js
 const Sequelize = require('sequelize');
 const sequelize = require('../config/db');
-const Cliente = require('./cliente');
 
 const Menu = sequelize.define('menu', {
   id: {
     type: Sequelize.INTEGER,
-    primaryKey: true,
     allowNull: false,
+    primaryKey: true,
   },
   nombre: {
     type: Sequelize.STRING(100),
     allowNull: true,
   },
   descripcion: {
-    type: Sequelize.TEXT('medium'),
+    type: Sequelize.MEDIUMTEXT,
     allowNull: true,
   },
-  contacto: {
+  contaco: {
     type: Sequelize.STRING(100),
     allowNull: true,
   },
@@ -30,11 +29,9 @@ const Menu = sequelize.define('menu', {
     allowNull: true,
   },
   direccion: {
-    type: Sequelize.TEXT('medium'),
+    type: Sequelize.MEDIUMTEXT,
     allowNull: true,
   },
 });
-
-Menu.belongsTo(Cliente, { foreignKey: 'cleinte_id', targetKey: 'id' });
 
 module.exports = Menu;

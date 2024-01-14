@@ -1,14 +1,13 @@
 // models/producto.js
 const Sequelize = require('sequelize');
 const sequelize = require('../config/db');
-const Menu = require('./menu');
 
 const Producto = sequelize.define('producto', {
   id: {
     type: Sequelize.INTEGER,
-    primaryKey: true,
-    allowNull: false,
     autoIncrement: true,
+    allowNull: false,
+    primaryKey: true,
   },
   nombre: {
     type: Sequelize.STRING(45),
@@ -21,36 +20,38 @@ const Producto = sequelize.define('producto', {
     defaultValue: 0,
   },
   descripcion: {
-    type: Sequelize.TEXT('medium'),
+    type: Sequelize.MEDIUMTEXT,
     allowNull: true,
   },
   ibu: {
     type: Sequelize.INTEGER,
     allowNull: true,
   },
-  porcentajeAlc: {
+  abv: {
+    type: Sequelize.FLOAT,
+    allowNull: true,
+  },
+  smr: {
     type: Sequelize.INTEGER,
     allowNull: true,
   },
-  cuerpo: {
-    type: Sequelize.INTEGER,
-    allowNull: true,
-  },
-  seccion_id: {
-    type: Sequelize.INTEGER,
+  estado: {
+    type: Sequelize.TINYINT,
     allowNull: false,
+    defaultValue: 0,
+  },
+  observacion: {
+    type: Sequelize.STRING(30),
+    allowNull: true,
   },
   menu_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
-  estado: {
-    type: Sequelize.BOOLEAN,
+  menu_cleinte_id: {
+    type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 0,
   },
 });
-
-Producto.belongsTo(Menu, { foreignKey: 'menu_id', targetKey: 'id' });
 
 module.exports = Producto;
