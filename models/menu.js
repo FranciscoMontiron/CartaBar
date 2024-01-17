@@ -7,17 +7,18 @@ const Menu = sequelize.define('menu', {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
+    autoIncrement: true
   },
   nombre: {
-    type: Sequelize.STRING(100),
+    type: Sequelize.STRING,
     allowNull: true,
   },
   descripcion: {
-    type: Sequelize.MEDIUMTEXT,
+    type: Sequelize.STRING,
     allowNull: true,
   },
   contaco: {
-    type: Sequelize.STRING(100),
+    type: Sequelize.STRING,
     allowNull: true,
   },
   cleinte_id: {
@@ -29,9 +30,12 @@ const Menu = sequelize.define('menu', {
     allowNull: true,
   },
   direccion: {
-    type: Sequelize.MEDIUMTEXT,
+    type: Sequelize.STRING,
     allowNull: true,
   },
+}, {
+  freezeTableName: true, // Esto evita la pluralización automática
+  timestamps: false, // Esto evita que se creen createdAt y updatedAt
 });
 
 module.exports = Menu;

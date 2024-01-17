@@ -8,9 +8,10 @@ const Producto = sequelize.define('producto', {
     autoIncrement: true,
     allowNull: false,
     primaryKey: true,
+    autoIncrement: true
   },
   nombre: {
-    type: Sequelize.STRING(45),
+    type: Sequelize.STRING,
     allowNull: false,
     defaultValue: 'producto',
   },
@@ -20,7 +21,7 @@ const Producto = sequelize.define('producto', {
     defaultValue: 0,
   },
   descripcion: {
-    type: Sequelize.MEDIUMTEXT,
+    type: Sequelize.STRING,
     allowNull: true,
   },
   ibu: {
@@ -41,7 +42,7 @@ const Producto = sequelize.define('producto', {
     defaultValue: 0,
   },
   observacion: {
-    type: Sequelize.STRING(30),
+    type: Sequelize.STRING,
     allowNull: true,
   },
   menu_id: {
@@ -52,6 +53,9 @@ const Producto = sequelize.define('producto', {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
+}, {
+  freezeTableName: true, // Esto evita la pluralización automática
+  timestamps: false, // Esto evita que se creen createdAt y updatedAt
 });
 
 module.exports = Producto;

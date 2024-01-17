@@ -7,9 +7,10 @@ const Seccion = sequelize.define('seccion', {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
+    autoIncrement: true
   },
   nombre: {
-    type: Sequelize.STRING(100),
+    type: Sequelize.STRING,
     allowNull: true,
   },
   categoria_id: {
@@ -20,6 +21,9 @@ const Seccion = sequelize.define('seccion', {
       key: 'id',
     },
   },
+}, {
+  freezeTableName: true, // Esto evita la pluralizacion automatica
+  timestamps: false, // Esto evita que se creen createdAt y updatedAt
 });
 
 module.exports = Seccion;

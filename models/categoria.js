@@ -7,9 +7,10 @@ const Categoria = sequelize.define('categoria', {
     type: Sequelize.INTEGER,
     allowNull: false,
     primaryKey: true,
+    autoIncrement: true
   },
   nombre: {
-    type: Sequelize.STRING(255),
+    type: Sequelize.STRING,
     defaultValue: 'categoria',
   },
   menu_id: {
@@ -28,6 +29,9 @@ const Categoria = sequelize.define('categoria', {
       key: 'cleinte_id',
     },
   },
+}, {
+  freezeTableName: true, // Esto evita la pluralización automática
+  timestamps: false, // Esto evita que se creen createdAt y updatedAt
 });
 
 module.exports = Categoria;
