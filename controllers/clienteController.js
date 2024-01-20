@@ -70,6 +70,30 @@ exports.updateCliente = async (req, res) => {
   }
 };
 
+exports.toggleEstado = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const cliente = await Cliente.findByPk(id);
+
+    if (cliente) {
+      // Alternar el valor del campo 'estado'
+      const nuevoEstado = cliente.estado === 1 ? 0 : 1;
+
+      await cliente.update({
+        estado: nuevoEstado,
+      });
+
+      res.json(cliente);
+    } else {
+      res.status(404).json({ error: 'Cliente no encontrado' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al actualizar el estado del cliente' });
+  }
+};
+
 // Eliminar un cliente por su ID
 exports.deleteCliente = async (req, res) => {
   const { id } = req.params;

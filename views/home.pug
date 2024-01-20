@@ -1,0 +1,11 @@
+extends layout
+
+block contenido
+  section.grid-main-container
+    header.header
+      div.img-logo-client
+        div.img-logo-example
+    div.center-section
+      div.button-menu-container(id="categorias-container")
+        each categoria in categorias
+          button.menu-button= categoria.nombre

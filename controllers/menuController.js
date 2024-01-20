@@ -28,6 +28,23 @@ exports.getMenuById = async (req, res) => {
   }
 };
 
+exports.getMenusByClienteId = async (req, res) => {
+  const { clienteId } = req.params;
+
+  try {
+    const menus = await Menu.findAll({
+      where: {
+        cleinte_id: clienteId,
+      },
+    });
+
+    res.json(menus);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener los menús por ID de cliente' });
+  }
+};
+
 // Crear un nuevo menú
 exports.createMenu = async (req, res) => {
   const { nombre, descripcion, contaco, cleinte_id, logo, direccion } = req.body;

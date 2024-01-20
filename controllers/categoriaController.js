@@ -28,6 +28,21 @@ exports.getCategoriaById = async (req, res) => {
   }
 };
 
+exports.getCategoriasByMenuId = async (req, res) => {
+  const { menu_id } = req.params;
+  try {
+    const categorias = await Categoria.findAll({
+      where: {
+        menu_id: menu_id,
+      },
+    });
+    res.json(categorias);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener las categorías por ID de menú' });
+  }
+};
+
 // Crear una nueva categoría
 exports.createCategoria = async (req, res) => {
   const { nombre, menu_id, menu_cleinte_id } = req.body;
