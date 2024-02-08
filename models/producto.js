@@ -7,15 +7,14 @@ const Producto = sequelize.define('producto', {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
-    primaryKey: true,
-    autoIncrement: true
+    primaryKey: true
   },
   nombre: {
     type: Sequelize.STRING,
     allowNull: false,
     defaultValue: 'producto',
   },
-  precio: {
+  precio_1: {
     type: Sequelize.FLOAT,
     allowNull: false,
     defaultValue: 0,
@@ -52,6 +51,19 @@ const Producto = sequelize.define('producto', {
   menu_cleinte_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
+  },
+  categoria_precio_1: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  categoria_precio_2: {
+    type: Sequelize.STRING,
+    allowNull: true,
+  },
+  precio_2: {
+    type: Sequelize.FLOAT,
+    allowNull: false,
+    defaultValue: 0,
   },
 }, {
   freezeTableName: true, // Esto evita la pluralización automática

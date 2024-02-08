@@ -15,10 +15,10 @@ exports.getSecciones = async (req, res) => {
 
 // Obtener una sección por su ID
 exports.getSeccionById = async (req, res) => {
-  const seccionId = req.params.id;
+  const id = req.params.id;
 
   try {
-    const seccion = await Seccion.findByPk(seccionId);
+    const seccion = await Seccion.findByPk(id);
     if (seccion) {
       res.json(seccion);
     } else {
@@ -30,18 +30,34 @@ exports.getSeccionById = async (req, res) => {
   }
 };
 
+// Obtener todas las secciones por categoria_id
+exports.getSeccionesByCategoriaId = async (req, res) => {
+  const categoriaId = req.params.categoria_id;
+
+  try {
+    const secciones = await Seccion.findAll({
+      where: { categoria_id: categoriaId },
+    });
+    res.json(secciones);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener las secciones por categoría_id' });
+  }
+};
+
+
 // Crear una nueva sección
 exports.createSeccion = async (req, res) => {
-  const { nombre, categoriaId } = req.body;
+  const { nombre, categoria_id } = req.body;
 
   try {
     // Verificar si la categoría asociada existe
-    const categoria = await Categoria.findByPk(categoriaId);
+    const categoria = await Categoria.findByPk(categoria_id);
     if (!categoria) {
       return res.status(400).json({ error: 'Categoría no encontrada' });
     }
 
-    const nuevaSeccion = await Seccion.create({ nombre, categoriaId });
+    const nuevaSeccion = await Seccion.create({ nombre, categoria_id });
     res.json(nuevaSeccion);
   } catch (error) {
     console.error(error);
@@ -51,21 +67,21 @@ exports.createSeccion = async (req, res) => {
 
 // Actualizar una sección existente
 exports.updateSeccion = async (req, res) => {
-  const seccionId = req.params.id;
-  const { nombre, categoriaId } = req.body;
+  const id = req.params.id;
+  const { nombre, categoria_id } = req.body;
 
   try {
-    const seccion = await Seccion.findByPk(seccionId);
+    const seccion = await Seccion.findByPk(id);
     if (seccion) {
       // Verificar si la nueva categoría asociada existe
-      const categoria = await Categoria.findByPk(categoriaId);
+      const categoria = await Categoria.findByPk(categoria_id);
       if (!categoria) {
         return res.status(400).json({ error: 'Nueva categoría no encontrada' });
       }
 
       // Actualizar la sección
       seccion.nombre = nombre;
-      seccion.categoriaId = categoriaId;
+      seccion.categoria_id = categoria_id;
       await seccion.save();
 
       res.json(seccion);
@@ -80,10 +96,10 @@ exports.updateSeccion = async (req, res) => {
 
 // Eliminar una sección por su ID
 exports.deleteSeccion = async (req, res) => {
-  const seccionId = req.params.id;
+  const id = req.params.id;
 
   try {
-    const seccion = await Seccion.findByPk(seccionId);
+    const seccion = await Seccion.findByPk(id);
     if (seccion) {
       await seccion.destroy();
       res.json({ message: 'Sección eliminada con éxito' });

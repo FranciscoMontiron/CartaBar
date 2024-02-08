@@ -7,13 +7,55 @@ const categoriaController = require('../controllers/categoriaController');
 const productoController = require('../controllers/productoController');
 const seccionController = require('../controllers/seccionController');
 const homeController = require('../controllers/homeController');
+const usuarioController = require('../controllers/usuarioController');
+const loginController = require('../controllers/loginController');
+const adminController = require('../controllers/adminController');
+const seccionesController = require('../controllers/seccionesController');
 
+
+const jwt = require('jsonwebtoken');
+
+// JWT Middleware
+
+// Middleware para verificar el token JWT
+/*
+const authenticateToken = (req, res, next) => {
+    const token = req.header('Authorization');
+    if (!token) return res.status(401).json({ error: 'Acceso no autorizado' });
+  
+    jwt.verify(token, 'claveSecreta', (err, usuario) => {
+      if (err) return res.status(403).json({ error: 'Token inválido' });
+  
+      req.usuario = usuario;
+      next();
+    });
+  };
+
+// Aplicar middleware a las rutas protegidas
+router.get('/usuarios', authenticateToken, usuarioController.getUsuarios);
+router.get('/usuarios/:id', authenticateToken, usuarioController.getUsuarioById);
+*/
 
 //manejo de vistas
-
 router.get('/categorias/traer/menu/:menu_id', homeController.home);
+router.get('/secciones/traer/categoria/:categoria_id', seccionesController.seccion);
 
-router.get('/login',);
+// Ruta para renderizar la vista de login
+router.get('/login', loginController.renderLogin);
+
+// Ruta para manejar la lógica de inicio de sesión
+router.post('/login', loginController.login);
+
+// ADMIN
+
+router.get('/admin', adminController.showAdminPage);
+/*
+router.post('/admin/secciones', adminController.createSeccion);
+router.put('/admin/secciones/:id', adminController.updateSeccion);
+router.delete('/admin/secciones/:id', adminController.deleteSeccion);
+router.post('/admin/productos', adminController.createProducto);
+router.put('/admin/productos/:id', adminController.updateProducto);
+router.delete('/admin/productos/:id', adminController.deleteProducto);*/
 
 
 //API
@@ -48,6 +90,7 @@ router.get('/productos/:id', productoController.getProductoById);
 router.post('/productos', productoController.createProducto);
 router.put('/productos/:id', productoController.updateProducto);
 router.delete('/productos/:id', productoController.deleteProducto);
+router.get('/productos/seccion/:seccion_id', productoController.obtenerProductosPorSeccion);
 
 // Rutas para Seccion
 router.get('/secciones', seccionController.getSecciones);
@@ -55,5 +98,15 @@ router.get('/secciones/:id', seccionController.getSeccionById);
 router.post('/secciones', seccionController.createSeccion);
 router.put('/secciones/:id', seccionController.updateSeccion);
 router.delete('/secciones/:id', seccionController.deleteSeccion);
+router.get('/secciones/categoria/:categoria_id', seccionController.getSeccionesByCategoriaId);
+
+// Rutas para Usuario
+router.get('/usuarios', usuarioController.getUsuarios);
+router.get('/usuarios/:id', usuarioController.getUsuarioById);
+router.post('/usuarios', usuarioController.createUsuario);
+router.put('/usuarios/:id', usuarioController.updateUsuario);
+router.delete('/usuarios/:id', usuarioController.deleteUsuario);
+
+
 
 module.exports = router;

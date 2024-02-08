@@ -1,0 +1,28 @@
+extends layout
+
+block contenido
+  section.grid-main-container
+    header.header
+      div.img-logo-client
+        div.img-logo-example
+    div.center-section
+      div.grid-menu-container
+        each seccion in secciones
+          div.card-container
+            //- Pizzas
+            div.fl-center.title-section
+              h2.h2-section #{seccion.nombre}
+            div.items-container
+              //- Mozzarella
+              div.card-item
+                div.item-info-container
+                  div.title-container
+                    h3.h3-item Mozzarella
+                  p.p-item-description Salsa de tomate, queso mozzarella, orégano y aceitunas verdes.
+                div.precio-item-container
+                  div.precio-item
+                    p.description-precio-item mediana
+                    p.p-precio-item $4400
+                  div.precio-item
+                    p.description-precio-item grande
+                    p.p-precio-item $6850

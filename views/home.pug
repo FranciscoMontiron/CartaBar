@@ -8,4 +8,6 @@ block contenido
     div.center-section
       div.button-menu-container(id="categorias-container")
         each categoria in categorias
-          button.menu-button= categoria.nombre
+          button.menu-button(type="button" onclick=`window.location.href='/api/secciones/traer/categoria/${categoria.id}'`) #{categoria.nombre}
+
+

@@ -1,0 +1,16 @@
+extends layout
+
+block contenido
+  section.grid-main-container
+    header.header
+      div.img-logo-client
+        div.img-logo-example
+    div.center-section
+      div.login-container
+        h2 Iniciar Sesión
+        form(action="/login", method="post")
+          label(for="usuario") Usuario:
+          input(type="text", id="usuario", name="usuario", required)
+          label(for="contrasena") Contraseña:
+          input(type="password", id="contrasena", name="contrasena", required)
+          button(type="submit") Iniciar Sesión

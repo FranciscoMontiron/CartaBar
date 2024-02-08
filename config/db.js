@@ -5,6 +5,7 @@ const sequelize = new Sequelize('barmenu', 'root', '', {
   host: 'localhost',
   dialect: 'mysql',
   port: 3306,
+  logging: console.log, // Habilita logs
 });
 
 try {

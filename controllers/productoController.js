@@ -32,7 +32,7 @@ exports.getProductoById = async (req, res) => {
 exports.createProducto = async (req, res) => {
   const {
     nombre,
-    precio,
+    precio_1,
     descripcion,
     ibu,
     abv,
@@ -41,11 +41,14 @@ exports.createProducto = async (req, res) => {
     observacion,
     menu_id,
     menu_cleinte_id,
+    categoria_precio_1,
+    categoria_precio_2,
+    precio_2
   } = req.body;
   try {
     const nuevoProducto = await Producto.create({
       nombre,
-      precio,
+      precio_1,
       descripcion,
       ibu,
       abv,
@@ -54,6 +57,9 @@ exports.createProducto = async (req, res) => {
       observacion,
       menu_id,
       menu_cleinte_id,
+      categoria_precio_1,
+      categoria_precio_2,
+      precio_2
     });
     res.status(201).json(nuevoProducto);
   } catch (error) {
@@ -67,7 +73,7 @@ exports.updateProducto = async (req, res) => {
   const { id } = req.params;
   const {
     nombre,
-    precio,
+    precio_1,
     descripcion,
     ibu,
     abv,
@@ -76,13 +82,16 @@ exports.updateProducto = async (req, res) => {
     observacion,
     menu_id,
     menu_cleinte_id,
+    categoria_precio_1,
+    categoria_precio_2,
+    precio_2
   } = req.body;
   try {
     const producto = await Producto.findByPk(id);
     if (producto) {
       await producto.update({
         nombre,
-        precio,
+        precio_1,
         descripcion,
         ibu,
         abv,
@@ -91,6 +100,9 @@ exports.updateProducto = async (req, res) => {
         observacion,
         menu_id,
         menu_cleinte_id,
+        categoria_precio_1,
+        categoria_precio_2,
+        precio_2
       });
       res.json(producto);
     } else {
@@ -116,5 +128,31 @@ exports.deleteProducto = async (req, res) => {
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Error al eliminar el producto' });
+  }
+};
+
+exports.obtenerProductosPorSeccion = async (req, res) => {
+  const { seccion_id } = req.params;
+
+  try {
+    // Busca la sección por ID y obtiene todos los productos asociados a esa sección
+    const seccion = await Seccion.findByPk(seccion_id, {
+      include: [{
+        model: Producto,
+        through: 'seccion_has_producto' // Nombre de la tabla intermedia
+      }]
+    });
+
+    if (!seccion) {
+      return res.status(404).json({ message: 'Sección no encontrada' });
+    }
+
+    // Extrae solo los productos de la sección
+    const productos = seccion.productos;
+
+    res.json(productos);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Error interno del servidor' });
   }
 };

@@ -1,5 +1,4 @@
 const fetch = require('node-fetch');
-const Categoria = require('../models/categoria');
 
 exports.home = async (req, res) => {
     const { menu_id } = req.params;
