@@ -45,9 +45,9 @@ exports.getCategoriasByMenuId = async (req, res) => {
 
 // Crear una nueva categoría
 exports.createCategoria = async (req, res) => {
-  const { nombre, menu_id, menu_cleinte_id } = req.body;
+  const { nombre, menu_id } = req.body;
   try {
-    const nuevaCategoria = await Categoria.create({ nombre, menu_id, menu_cleinte_id });
+    const nuevaCategoria = await Categoria.create({ nombre, menu_id });
     res.status(201).json(nuevaCategoria);
   } catch (error) {
     console.error(error);
@@ -58,11 +58,11 @@ exports.createCategoria = async (req, res) => {
 // Actualizar una categoría por su ID
 exports.updateCategoria = async (req, res) => {
   const { id } = req.params;
-  const { nombre, menu_id, menu_cleinte_id } = req.body;
+  const { nombre, menu_id } = req.body;
   try {
     const categoria = await Categoria.findByPk(id);
     if (categoria) {
-      await categoria.update({ nombre, menu_id, menu_cleinte_id });
+      await categoria.update({ nombre, menu_id });
       res.json(categoria);
     } else {
       res.status(404).json({ error: 'Categoría no encontrada' });

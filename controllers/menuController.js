@@ -34,7 +34,7 @@ exports.getMenusByClienteId = async (req, res) => {
   try {
     const menus = await Menu.findAll({
       where: {
-        cleinte_id: clienteId,
+        cliente_id: clienteId,
       },
     });
 
@@ -47,9 +47,9 @@ exports.getMenusByClienteId = async (req, res) => {
 
 // Crear un nuevo menú
 exports.createMenu = async (req, res) => {
-  const { nombre, descripcion, contaco, cleinte_id, logo, direccion } = req.body;
+  const { nombre, descripcion, contacto, cliente_id, logo, direccion } = req.body;
   try {
-    const nuevoMenu = await Menu.create({ nombre, descripcion, contaco, cleinte_id, logo, direccion });
+    const nuevoMenu = await Menu.create({ nombre, descripcion, contacto, cliente_id, logo, direccion });
     res.status(201).json(nuevoMenu);
   } catch (error) {
     console.error(error);
@@ -60,11 +60,11 @@ exports.createMenu = async (req, res) => {
 // Actualizar un menú por su ID
 exports.updateMenu = async (req, res) => {
   const { id } = req.params;
-  const { nombre, descripcion, contaco, cleinte_id, logo, direccion } = req.body;
+  const { nombre, descripcion, contaco, cliente_id, logo, direccion } = req.body;
   try {
     const menu = await Menu.findByPk(id);
     if (menu) {
-      await menu.update({ nombre, descripcion, contaco, cleinte_id, logo, direccion });
+      await menu.update({ nombre, descripcion, contaco, cliente_id, logo, direccion });
       res.json(menu);
     } else {
       res.status(404).json({ error: 'Menú no encontrado' });

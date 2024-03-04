@@ -1,6 +1,7 @@
 // controllers/seccionController.js
-const Seccion = require('../models/seccion');
 const Categoria = require('../models/categoria');
+const Seccion = require('../models/seccion');
+const Producto = require('../models/producto');
 
 // Obtener todas las secciones
 exports.getSecciones = async (req, res) => {
@@ -13,12 +14,17 @@ exports.getSecciones = async (req, res) => {
   }
 };
 
-// Obtener una sección por su ID
+// Obtener una sección por su ID con sus productos asociados
 exports.getSeccionById = async (req, res) => {
   const id = req.params.id;
 
   try {
-    const seccion = await Seccion.findByPk(id);
+    const seccion = await Seccion.findByPk(id, {
+      include: [{
+        model: Producto,
+        as: 'productos'
+      }]
+    });
     if (seccion) {
       res.json(seccion);
     } else {

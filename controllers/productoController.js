@@ -39,11 +39,11 @@ exports.createProducto = async (req, res) => {
     smr,
     estado,
     observacion,
-    menu_id,
-    menu_cleinte_id,
     categoria_precio_1,
     categoria_precio_2,
-    precio_2
+    precio_2,
+    clienteId,
+    seccionId
   } = req.body;
   try {
     const nuevoProducto = await Producto.create({
@@ -55,11 +55,11 @@ exports.createProducto = async (req, res) => {
       smr,
       estado,
       observacion,
-      menu_id,
-      menu_cleinte_id,
       categoria_precio_1,
       categoria_precio_2,
-      precio_2
+      precio_2,
+      clienteId,
+      seccionId
     });
     res.status(201).json(nuevoProducto);
   } catch (error) {
@@ -67,6 +67,7 @@ exports.createProducto = async (req, res) => {
     res.status(500).json({ error: 'Error al crear el producto' });
   }
 };
+
 
 // Actualizar un producto por su ID
 exports.updateProducto = async (req, res) => {
@@ -80,11 +81,11 @@ exports.updateProducto = async (req, res) => {
     smr,
     estado,
     observacion,
-    menu_id,
-    menu_cleinte_id,
     categoria_precio_1,
     categoria_precio_2,
-    precio_2
+    precio_2,
+    clienteId,
+    seccionId
   } = req.body;
   try {
     const producto = await Producto.findByPk(id);
@@ -98,11 +99,11 @@ exports.updateProducto = async (req, res) => {
         smr,
         estado,
         observacion,
-        menu_id,
-        menu_cleinte_id,
         categoria_precio_1,
         categoria_precio_2,
-        precio_2
+        precio_2,
+        clienteId,
+        seccionId
       });
       res.json(producto);
     } else {

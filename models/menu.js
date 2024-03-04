@@ -17,11 +17,11 @@ const Menu = sequelize.define('menu', {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  contaco: {
+  contacto: {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  cleinte_id: {
+  cliente_id: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
@@ -33,9 +33,11 @@ const Menu = sequelize.define('menu', {
     type: Sequelize.STRING,
     allowNull: true,
   },
+  
 }, {
   freezeTableName: true, // Esto evita la pluralización automática
   timestamps: false, // Esto evita que se creen createdAt y updatedAt
 });
+
 
 module.exports = Menu;

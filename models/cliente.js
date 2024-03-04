@@ -34,4 +34,5 @@ const Cliente = sequelize.define('cliente', {
   timestamps: false, // Esto evita que se creen createdAt y updatedAt
 });
 
+
 module.exports = Cliente;

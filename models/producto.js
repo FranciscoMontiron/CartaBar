@@ -1,18 +1,17 @@
-// models/producto.js
-const Sequelize = require('sequelize');
-const sequelize = require('../config/db');
+const Sequelize = require("sequelize");
+const sequelize = require("../config/db");
 
-const Producto = sequelize.define('producto', {
+const Producto = sequelize.define("producto", {
   id: {
     type: Sequelize.INTEGER,
     autoIncrement: true,
     allowNull: false,
-    primaryKey: true
+    primaryKey: true,
   },
   nombre: {
     type: Sequelize.STRING,
     allowNull: false,
-    defaultValue: 'producto',
+    defaultValue: "producto",
   },
   precio_1: {
     type: Sequelize.FLOAT,
@@ -44,14 +43,6 @@ const Producto = sequelize.define('producto', {
     type: Sequelize.STRING,
     allowNull: true,
   },
-  menu_id: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-  menu_cleinte_id: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
   categoria_precio_1: {
     type: Sequelize.STRING,
     allowNull: true,
@@ -65,9 +56,27 @@ const Producto = sequelize.define('producto', {
     allowNull: false,
     defaultValue: 0,
   },
+  clienteId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: "cliente", 
+      key: "id",
+    },
+  },
+  seccionId: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    references: {
+      model: "seccion", // nombre de la tabla de secciones
+      key: "id",
+    },
+  },
 }, {
-  freezeTableName: true, // Esto evita la pluralización automática
-  timestamps: false, // Esto evita que se creen createdAt y updatedAt
+  freezeTableName: true,
+  timestamps: false,
 });
 
+
 module.exports = Producto;
+

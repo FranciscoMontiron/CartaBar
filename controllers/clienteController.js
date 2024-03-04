@@ -12,6 +12,27 @@ exports.getClientes = async (req, res) => {
   }
 };
 
+// Obtener un cliente por su ID con sus menús asociados
+exports.getClienteWithMenus = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const cliente = await Cliente.findByPk(id, {
+      include: [{
+        model: Menu,
+        as: 'menus'
+      }]
+    });
+    if (cliente) {
+      res.json(cliente);
+    } else {
+      res.status(404).json({ error: 'Cliente no encontrado' });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Error al obtener el cliente con sus menús' });
+  }
+};
+
 // Obtener un cliente por su ID
 exports.getClienteById = async (req, res) => {
   const { id } = req.params;

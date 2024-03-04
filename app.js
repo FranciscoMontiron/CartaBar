@@ -21,6 +21,10 @@ app.set('view engine', 'pug');
 // Carpeta view
 app.set('views', path.join(__dirname, 'views'));
 
+// Requerir el archivo de relaciones antes de sincronizar los modelos
+require('./models/relations');
+
+
 // Usa la instancia de sequelize en tus rutas o donde sea necesario
 app.use((req, res, next) => {
   req.sequelize = sequelize;
